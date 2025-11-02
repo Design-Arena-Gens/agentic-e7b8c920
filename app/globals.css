@@ -1,0 +1,114 @@
+/* Color system: strict black & white with textured grayscale */
+:root {
+  --bg: #ffffff;
+  --fg: #0a0a0a;
+  --muted: #1a1a1a;
+}
+
+* { box-sizing: border-box; }
+
+html, body { height: 100%; }
+
+body {
+  margin: 0;
+  background-color: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-typewriter), "Courier New", Courier, monospace;
+  line-height: 1.65;
+  letter-spacing: 0.015em;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* Paper texture via layered monochrome noise */
+  background-image:
+    radial-gradient(circle at 20% 15%, rgba(0,0,0,0.03) 0 2px, transparent 3px),
+    radial-gradient(circle at 80% 40%, rgba(0,0,0,0.02) 0 1.5px, transparent 2.5px),
+    radial-gradient(circle at 50% 80%, rgba(0,0,0,0.02) 0 1.2px, transparent 2px),
+    linear-gradient(0deg, rgba(0,0,0,0.015), rgba(0,0,0,0.015));
+  background-blend-mode: multiply;
+}
+
+/* Floating ink specks overlay */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    radial-gradient(circle at 12% 22%, rgba(0,0,0,0.08) 0 1.2px, transparent 1.6px),
+    radial-gradient(circle at 33% 73%, rgba(0,0,0,0.07) 0 1px, transparent 1.4px),
+    radial-gradient(circle at 77% 18%, rgba(0,0,0,0.06) 0 1.3px, transparent 1.7px),
+    radial-gradient(circle at 58% 51%, rgba(0,0,0,0.05) 0 0.9px, transparent 1.3px);
+  mix-blend-mode: multiply;
+  opacity: 0.5;
+}
+
+main {
+  max-width: 760px;
+  margin: 6rem auto 8rem;
+  padding: 0 1.25rem;
+}
+
+article {
+  position: relative;
+  padding: 2.5rem 2rem 2.25rem;
+  border: 1px solid rgba(0,0,0,0.75);
+  background: rgba(255,255,255,0.98);
+  box-shadow:
+    0 2px 0 0 rgba(0,0,0,1),
+    0 8px 0 0 rgba(0,0,0,0.9),
+    0 12px 24px rgba(0,0,0,0.25);
+}
+
+/* Typewriter page margin guides */
+article::before {
+  content: "";
+  position: absolute;
+  top: 0; bottom: 0; left: 2.25rem; right: 2.25rem;
+  border-left: 1px dashed rgba(0,0,0,0.25);
+  border-right: 1px dashed rgba(0,0,0,0.25);
+  pointer-events: none;
+}
+
+h1 {
+  margin: 0 0 0.75rem 0;
+  font-size: 2.1rem;
+  letter-spacing: 0.02em;
+  text-transform: none;
+  color: var(--fg);
+}
+
+.dek {
+  margin: 0 0 2.25rem 0;
+  color: var(--muted);
+  opacity: 0.9;
+}
+
+p {
+  margin: 0 0 1.2rem 0;
+  font-size: 1.02rem;
+}
+
+/* Slight misalignment for raw typewriter charm */
+p:nth-of-type(3n) { transform: rotate(-0.05deg); }
+p:nth-of-type(4n) { transform: rotate(0.06deg); }
+p:nth-of-type(5n) { transform: rotate(-0.04deg); }
+
+/* Subtle ink bleed effect */
+p, h1, .dek {
+  text-shadow: 0.03em 0 rgba(0,0,0,0.35), -0.03em 0 rgba(0,0,0,0.35);
+}
+
+.lede p {
+  font-size: 1.08rem;
+}
+
+.outro p:last-child {
+  margin-bottom: 0;
+}
+
+/* Selection inversion */
+::selection {
+  background: #111;
+  color: #fff;
+}
